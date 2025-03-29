@@ -1,3 +1,5 @@
+
+/* Main.py */
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import random
@@ -66,3 +68,386 @@ if __name__=="__main__":
         db.create_all()
     app.run(debug=True)
 
+/*Bot.py*/
+import discord
+from discord.ext import commands
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'{bot.user} olarak giriş yaptık')
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Merhaba! Ben {bot.user}, Bir Discord Tabu Oyun Botuyum!')
+
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+bot.run("MTM1MjM0NjY2MTUyNzIyODQzOA.GZqotz.9sAriHikyknxXWRJ1E-pTCxYRlSwvdLOPALR0c")
+
+/* Index.html */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyuna Hoşgeldin Menn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: url('https://source.unsplash.com/1600x900/?retro,game') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.9);
+            animation: bounce 1s infinite alternate;
+        }
+
+        h3 {
+            margin: 20px 0;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1.5rem;
+            background-color: #ff4081;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        a:hover {
+            background-color: #ff80ab;
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+            animation: pulse 1.2s infinite;
+        }
+
+        a:active {
+            transform: scale(1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .container a {
+            margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .game-logo {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ffcc00;
+            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.7);
+            margin-bottom: 50px;
+        }
+
+        /* Parallax Effect for Background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('home') }}" method="post" class="creat-form">
+        <label for="title">
+            <input  type="text" name="title" id="title" placeholder="Kelime Yaz" required>
+        </label>
+        <label for="kilim">
+            <input type="text" name="kilim" id="kilim" placeholder="Yasaklı Kelime 1 Yazın" required>
+        </label>
+        <label for="kelim">
+            <input type="text" name="kelim" id="kelim" placeholder="Yasaklı Kelime 1 Yazın" required>
+        </label>
+        <label for="kulim">
+            <input type="text" name="kulim" id="kulim" placeholder="Yasaklı Kelime 1 Yazın" required>
+        </label>
+        <label for="kalim">
+            <input type="text" name="kalim" id="kalim" placeholder="Yasaklı Kelime 1 Yazın" required>
+        </label>
+
+    <button class="form__button">Oluştur</button>
+</form>
+</body>
+</html>
+
+/* Home.html */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyuna Hoşgeldin Menn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        h3 {
+            margin: 20px 0;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        a {
+            text-decoration: none;
+            color: #f7f7f7;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background-color: #ff4081;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #ff80ab;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        a:active {
+            transform: scale(1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Add some cool box for a button-like effect */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container a {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oyuna Hoşgeldin Menn</h1>
+        <h3><a href="/game">Oyunu Başlatmak İçin Tıkla!</a></h3>
+        <h3><a href="/ayarlar">Kelime Eklemek İçin Tıkla!</a></h3>
+    </div>
+</body>
+</html>
+
+/* Game.html */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .answer {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .answer:hover {
+            background-color: #e0e0e0;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .answer input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Question Game</h1>
+        <p class="score"><strong>Score: {{ skor }}</strong></p>
+        <h2 class="question">{{ mleh.cannot4 }}</h2> <!-- Display the question from the database -->
+        
+        <!-- Create a form for the answers -->
+        <form method="POST">
+            {%for a in xyz%}
+            <div class="answer">
+                <input type="radio" id="answer1" name="answer" value="{{ a }}">
+                <label for="answer1">{{ a }}</label>
+            </div>
+            
+            {%endfor%}
+            
+            <button type="submit">Submit Answer</button>
+        </form>
+    </div>
+</body>
+</html>
+
+/* Diary_yeni.db */
