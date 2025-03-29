@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .answer {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .answer:hover {
+            background-color: #e0e0e0;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .answer input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Question Game</h1>
+        <p class="score"><strong>Score: {{ skor }}</strong></p>
+        <h2 class="question">{{ mleh.cannot4 }}</h2> <!-- Display the question from the database -->
+        
+        <!-- Create a form for the answers -->
+        <form method="POST">
+            {%for a in xyz%}
+            <div class="answer">
+                <input type="radio" id="answer1" name="answer" value="{{ a }}">
+                <label for="answer1">{{ a }}</label>
+            </div>
+            
+            {%endfor%}
+            
+            <button type="submit">Submit Answer</button>
+        </form>
+    </div>
+</body>
+</html>

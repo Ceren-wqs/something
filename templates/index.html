@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyuna Hoşgeldin Menn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: url('https://source.unsplash.com/1600x900/?retro,game') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.9);
+            animation: bounce 1s infinite alternate;
+        }
+
+        h3 {
+            margin: 20px 0;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1.5rem;
+            background-color: #ff4081;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        a:hover {
+            background-color: #ff80ab;
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+            animation: pulse 1.2s infinite;
+        }
+
+        a:active {
+            transform: scale(1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .container a {
+            margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .game-logo {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ffcc00;
+            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.7);
+            margin-bottom: 50px;
+        }
+
+        /* Parallax Effect for Background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('home') }}" method="post" class="creat-form">
+        <label for="title">
+            <input  type="text" name="title" id="title" placeholder="Kelime Yaz" required>
+        </label>
+        <label for="kilim">
+            <input type="text" name="kilim" id="kilim" placeholder="Yasaklı Kelime 1 Yazın" required>
+        </label>
+        <label for="kelim">
+            <input type="text" name="kelim" id="kelim" placeholder="Yasaklı Kelime 1 Yazın" required>
+        </label>
+        <label for="kulim">
+            <input type="text" name="kulim" id="kulim" placeholder="Yasaklı Kelime 1 Yazın" required>
+        </label>
+        <label for="kalim">
+            <input type="text" name="kalim" id="kalim" placeholder="Yasaklı Kelime 1 Yazın" required>
+        </label>
+
+    <button class="form__button">Oluştur</button>
+</form>
+</body>
+</html>
